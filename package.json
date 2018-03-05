@@ -1,0 +1,21 @@
+{
+  "name": "morningstar",
+  "version": "0.0.1",
+  "description": "Module to extract morningstar data",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cloudant": "^1.10.0-NOTICE",
+    "debug": "^3.1.0",
+    "dotenv": "^5.0.1",
+    "line-by-line": "^0.1.6",
+    "path": "^0.12.7",
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5"
+  }
+}
