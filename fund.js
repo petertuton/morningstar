@@ -285,6 +285,9 @@ function extractTable($, table, headings) {
     case "Fees & Expenses":
       result = fixFeesAndExpenses(result);
       break;
+    case "Trailing Year Returns":
+      result = fixTrailingYearReturns(result);
+      break;
   }
 
   // Convert the array of objects into an array of a single object
@@ -455,6 +458,31 @@ function fixFeesAndExpenses(table) {
     if (key === "One-Time" || key === "Annual") {
       // Drop it
     }
+    else
+      // Just add it to the result
+      result.push(table[i]);
+  }
+  return result;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+function fixTrailingYearReturns(table) {
+  let result = [];
+  for (let i = 0, len = table.length; i < len; i++) {
+    // Look for entries with "Rank"
+    let key = isNull(Object.values(table[i])[3]) ? null : Object.keys(table[i])[3].trim();
+    if (!isNull(key) && key.includes("Rank")) {
+      // Strip the rank values: "x / y"
+      let values = Object.values(table[i])[3].trim().split(" / ");
+      // Push them back onto the resulting array
+      // result.push({key: values[0]},{key: values[1]});
+      let position = key + " Position";
+      let total = key + " Total";
+      table[i][position] = Number(values[0]);
+      table[i][total] = Number(values[1]);
+      result.push(table[i]);
+  }
     else
       // Just add it to the result
       result.push(table[i]);
